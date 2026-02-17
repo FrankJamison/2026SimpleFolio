@@ -1,360 +1,214 @@
-# Simplefolio ⚡️ [![GitHub](https://img.shields.io/github/license/cobiwave/simplefolio?color=blue)](https://github.com/cobiwave/simplefolio/blob/master/LICENSE.md) ![GitHub stars](https://img.shields.io/github/stars/cobiwave/simplefolio) ![GitHub forks](https://img.shields.io/github/forks/cobiwave/simplefolio)
+# Frank Jamison — SimpleFolio Portfolio (2026)
 
-## A minimal portfolio template for Developers!
+This is my personal, single-page developer portfolio site.
 
-<h2 align="center">
-  <img src="https://github.com/cobiwave/gatsby-simplefolio/blob/master/examples/example.gif" alt="Simplefolio" width="600px" />
-  <br>
-</h2>
+It’s built as a fast, static site with a clean SCSS architecture, a small amount of JavaScript for interaction/animation, and a design that emphasizes clarity, readability, and a focused presentation of projects.
 
-## Features
+## For employers & recruiters
 
-⚡️ Modern UI Design + Reveal Animations\
-⚡️ One Page Layout\
-⚡️ Styled with Bootstrap v4.3 + Custom SCSS\
-⚡️ Fully Responsive\
-⚡️ Valid HTML5 & CSS3\
-⚡️ Optimized with Parcel\
-⚡️ Well organized documentation
+What this site demonstrates:
 
-To view the demo: **[click here](https://the-simplefolio.netlify.app/)**
+- A production-style static web project (build pipeline + organized source structure)
+- Responsive layout and typography tuned for desktop/tablet/mobile
+- Design consistency via SCSS tokens (colors, sizes) and reusable components
+- Lightweight UX enhancements (reveal animations + subtle tilt) without a framework
 
----
+Where to look:
 
-## Why do you need a portfolio? ☝️
+- Content + messaging: `src/index.html`
+- Design system + layout: `src/sass/` (imported by `src/styles.scss`)
+- JS behavior: `src/index.js` + `src/scripts/`
 
-- Professional way to showcase your work
-- Increases your visibility and online presence
-- Shows you’re more than just a resume
+## Tech stack
 
-## Getting Started 🚀
+- Parcel 2 (dev server + production bundling)
+- Bootstrap 5 (grid + base utilities) with custom SCSS
+- ScrollReveal (section/element reveal animations)
+- Vanilla Tilt (tilt effect on project thumbnails)
+- Font Awesome (icon font via CDN)
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+## Semantic HTML & accessibility
 
-### Prerequisites 📋
+This site is implemented with semantic landmarks and accessibility-first defaults so it works well with keyboards, screen readers, and reduced-motion preferences.
 
-You'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [NPM](http://npmjs.com)) installed on your computer.
+Key improvements and where they live:
 
-```
-node@v16.4.2 or higher
-npm@7.18.1 or higher
-git@2.30.1 or higher
-```
+- Skip navigation: a “Skip to main content” link is the first focusable element in `src/index.html`.
+- Landmarks: the page is structured with `header`, `main`, and `footer`.
+- Clear section labeling: each major `section` uses `aria-labelledby` pointing at its heading (`h1`/`h2`).
+- Project markup: each project uses an `article` element and is labeled via `aria-labelledby`.
+- Icon-only links: back-to-top + social links include accessible names (screen-reader-only text and/or `aria-label`).
+- Link safety: external links that open a new tab use `rel="noopener noreferrer"`.
+- Descriptive media: meaningful images use specific `alt` text (not generic “Project Image”).
 
-Also, you can use [Yarn](https://yarnpkg.com/) instead of NPM ☝️
+Motion and focus behavior:
 
-```
-yarn@v1.22.10 or higher
-```
+- Reduced motion: if the user has `prefers-reduced-motion: reduce`, ScrollReveal + tilt are not initialized.
+- Progressive enhancement: `.load-hidden` elements are only hidden when the `sr` class is present on the root element; `src/index.js` adds that class only when animations will run.
+- Keyboard focus: a global `:focus-visible` outline and skip-link styling are defined in `src/sass/base/_base.scss`.
 
----
+## Local development (developers)
 
-## How To Use 🔧
+### Prerequisites
 
-From your command line, first clone Simplefolio:
+- Node.js + npm
 
-```bash
-# Clone the repository
-$ git clone https://github.com/cobiwave/simplefolio
-
-# Move into the repository
-$ cd simplefolio
-
-# Remove the current origin repository
-$ git remote remove origin
-```
-
-After that, you can install the dependencies either using NPM or Yarn.
-
-Using NPM: Simply run the below commands.
+### Install
 
 ```bash
-# 2022 Update - Fix Dependencies
-$ npm audit fix
-$ npm i @parcel/transformer-sass
-
-# Install dependencies
-$ npm install
-
-# Start the development server
-$ npm start
+npm install
 ```
 
-Using Yarn: Be aware of that you'll need to delete the `package-lock.json` file before executing the below commands.
+### Run (dev server)
 
 ```bash
-# Install dependencies
-$ yarn
-
-# Start the development server
-$ yarn start
+npm start
 ```
 
-**NOTE**:
-If your run into issues installing the dependencies with NPM, use this below command:
+Open:
+
+- http://localhost:1234/
+
+### Build (production)
 
 ```bash
-# Install dependencies with all permissions
-$ sudo npm install --unsafe-perm=true --allow-root
+npm run build
 ```
 
-Once your server has started, go to this url `http://localhost:1234/` to see the portfolio locally. It should look like the below screenshot.
+Parcel outputs a static build to the `dist/` folder.
 
-<h2 align="center">
-  <img src="https://github.com/cobiwave/gatsby-simplefolio/blob/master/examples/example.png" alt="Simplefolio" width="100%">
-</h2>
+## Project structure
 
----
-
-## Template Instructions:
-
-### Step 1 - STRUCTURE
-
-Go to `/src/index.html` and put your information, there are 5 sections:
-
-### (1) Hero Section
-
-- On `.hero-title`, put your custom portfolio title.
-- On `.hero-cta`, put your custom button label.
-
-```html
-<!-- **** Hero Section **** -->
-<section id="hero" class="jumbotron">
-  <div class="container">
-    <h1 class="hero-title load-hidden">
-      Hi, my name is <span class="text-color-main">Your Name</span>
-      <br />
-      I'm the Unknown Developer.
-    </h1>
-    <p class="hero-cta load-hidden">
-      <a rel="noreferrer" class="cta-btn cta-btn--hero" href="#about">
-        Know more
-      </a>
-    </p>
-  </div>
-</section>
-<!-- /END Hero Section -->
+```text
+src/
+	index.html              # Page content + section structure
+	index.js                # JS entry: initializes animations
+	styles.scss             # SCSS entry: imports all partials
+	assets/                 # Images, favicon, resume PDF
+	data/scrollRevealConfig.js
+	scripts/
+		scrollReveal.js
+		tiltAnimation.js
+	sass/
+		abstracts/            # tokens, mixins, helpers
+		base/                 # base styles + typography
+		components/           # buttons
+		layout/               # section/footer layout
+		sections/             # hero/about/projects/contact styling
+		vendors/              # Bootstrap import
+examples/                 # template preview assets (optional)
 ```
 
-### (2) About Section
+## Design & UI implementation details
 
-- On `<img>` tag, fill the `src` property with your profile picture path, your picture must be located inside `/src/assets/` folder.
-- On `<p>` tag with class name `.about-wrapper__info-text`, include information about you, I recommend to put 2 paragraphs in order to work well and a maximum of 3 paragraphs.
-- On last `<a>` tag, include your CV (.pdf) path on `href` property, your resume CV must be located inside `/src/assets/` folder.
+### Visual theme (tokens)
 
-```html
-<!-- **** About Section **** -->
-<section id="about">
-  <div class="container">
-    <h2 class="section-title load-hidden">About me</h2>
-    <div class="row about-wrapper">
-      <div class="col-md-6 col-sm-12">
-        <div class="about-wrapper__image load-hidden">
-          <img
-            alt="Profile Image"
-            class="img-fluid rounded shadow-lg"
-            height="auto"
-            width="300px"
-            src="assets/profile.jpg"
-            alt="Profile Image"
-          />
-        </div>
-      </div>
-      <div class="col-md-6 col-sm-12">
-        <div class="about-wrapper__info load-hidden">
-          <p class="about-wrapper__info-text">
-            This is where you can describe about yourself. The more you describe
-            about yourself, the more chances you can!
-          </p>
-          <p class="about-wrapper__info-text">
-            Extra Information about you! like hobbies and your goals.
-          </p>
-          <span class="d-flex mt-3">
-            <a
-              rel="noreferrer"
-              target="_blank"
-              class="cta-btn cta-btn--resume"
-              href="assets/resume.pdf"
-            >
-              View Resume
-            </a>
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- /END About Section -->
-```
+Core design tokens live in `src/sass/abstracts/_variables.scss`:
 
-### (3) Projects Section
+- `$accent-color` drives the site’s primary look (links, gradients, highlights)
+- `$dark-grey` / `$light-grey` define the overall dark theme base
+- `$default-font-size`, `$big-font-size`, `$mid-font-size` standardize type scale
 
-- Each project lives inside a `row`.
-- On `<h3>` tag with class name `.project-wrapper__text-title`, include your project title.
-- On `<p>` tag with `loremp ipsum` text, include your project description.
-- On first `<a>` tag, put your project url on `href` property.
-- On second `<a>` tag, put your project repository url on `href` property.
+### Typography
 
----
+Typography is defined in `src/sass/base/_typography.scss`:
 
-- Inside `<div>` tag with class name `.project-wrapper__image`, put your project image url on the `src` of the `<img>` and put again your project url in the `href` property of the `<a>` tag.
-- Recommended size for project image (1366 x 767), your project image must be located inside `/src/assets/` folder.
+- Montserrat (Google Fonts) for body text and links
+- Uppercased section titles with responsive sizing
+- Accent text style via `.text-color-main` (gradient-capable where supported)
 
-```html
-<!-- **** Projects Section **** -->
-<section id="projects">
-  ...
-  <!-- Notice: each .row is a project -->
-  <div class="row">
-    <div class="col-lg-4 col-sm-12">
-      <div class="project-wrapper__text load-hidden">
-        <h3 class="project-wrapper__text-title">Project Title</h3>
-        <div>
-          <p class="mb-4">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Excepturi
-            neque, ipsa animi maiores repellendus distinctio aperiam earum dolor
-            voluptatum consequatur blanditiis inventore debitis fuga numquam
-            voluptate ex architecto itaque molestiae.
-          </p>
-        </div>
-        <a
-          rel="noreferrer"
-          target="_blank"
-          class="cta-btn cta-btn--hero"
-          href="#!"
-        >
-          See Live
-        </a>
-        <a
-          rel="noreferrer"
-          target="_blank"
-          class="cta-btn text-color-main"
-          href="#!"
-        >
-          Source Code
-        </a>
-      </div>
-    </div>
-    <div class="col-lg-8 col-sm-12">
-      <div class="project-wrapper__image load-hidden">
-        <a rel="noreferrer" href="#!" target="_blank">
-          <div
-            data-tilt
-            data-tilt-max="4"
-            data-tilt-glare="true"
-            data-tilt-max-glare="0.5"
-            class="thumbnail rounded js-tilt"
-          >
-            <img
-              alt="Project Image"
-              class="img-fluid"
-              src="assets/project.jpg"
-            />
-          </div>
-        </a>
-      </div>
-    </div>
-  </div>
-  <!-- /END Project -->
-  ...
-</section>
-```
+### Layout and section composition
 
-### (4) Contact Section
+The page is intentionally a single, scrollable document with clear sections:
 
-- On `<p>` tag with class name `.contact-wrapper__text`, include some custom call-to-action message.
-- On `<a>` tag, put your email address on `href` property.
+- Hero: full-viewport, dark overlay, background image
+	- Styling: `src/sass/sections/_hero.scss`
+	- Uses a background overlay + `url("./assets/project.jpg")`
 
-```html
-<!-- **** Contact Section **** -->
-<section id="contact">
-  <div class="container">
-    <h2 class="section-title">Contact</h2>
-    <div class="contact-wrapper load-hidden">
-      <p class="contact-wrapper__text">[Put your call to action here]</p>
-      <a
-        rel="noreferrer"
-        target="_blank"
-        class="cta-btn cta-btn--resume"
-        href="mailto:example@email.com"
-        >Call to Action</a
-      >
-    </div>
-  </div>
-</section>
-<!-- /END Contact Section -->
-```
+- About / Contact: gradient sections with clipped diagonals
+	- Styling: `src/sass/sections/_about.scss`, `src/sass/sections/_contact.scss`
+	- Uses `clip-path` for angled section edges (disabled on smaller breakpoints)
+	- Adds text-shadow only within gradient sections to maintain legibility
 
-### (5) Footer Section
+- Projects: dark section with project rows and thumbnail emphasis
+	- Styling: `src/sass/sections/_projects.scss`
+	- Uses a subtle shadow/transition on `.thumbnail` and responsive spacing
 
-- Put your Social Media URL on each `href` attribute of the `<a>` tags.
-- If you an additional Social Media account different than Twitter, Linkedin or GitHub, then go to [Font Awesome Icons](https://fontawesome.com/v4.7.0/icons/) and search for the icon's class name you are looking.
-- You can delete or add as many `<a>` tags your want.
+- Footer: minimal, dark, with social links and back-to-top affordance
+	- Styling: `src/sass/layout/_footer.scss`
 
-```html
-<footer class="footer navbar-static-bottom">
-  ...
-  <div class="social-links">
-    <a href="#!" target="_blank">
-      <i class="fa fa-twitter fa-inverse"></i>
-    </a>
-    <a href="#!" target="_blank">
-      <i class="fa fa-linkedin fa-inverse"></i>
-    </a>
-    <a href="#!" target="_blank">
-      <i class="fa fa-github fa-inverse"></i>
-    </a>
-  </div>
-  ...
-</footer>
-```
+Global section spacing is in `src/sass/layout/_sections.scss`.
 
-### Step 2 - STYLES
+### Buttons (CTAs)
 
-Change the color theme of the website - (choose 2 colors to create a gradient)
+Buttons are designed as reusable components in `src/sass/components/_buttons.scss`:
 
-Go to `/src/sass/abstracts/_variables.scss` and only change the values for this variables `$main-color` and `$secondary-color` with your prefered HEX color.
-If you want to get some gradients inspiration I highly recommend you to check this website [UI Gradient](https://uigradients.com/#BrightVault)
+- `.cta-btn--hero` uses gradient borders and a fill-on-hover effect
+- `.cta-btn--resume` is a high-contrast outlined button with fill-on-hover
 
-```scss
-// Default values
-$main-color: #02aab0;
-$secondary-color: #00cdac;
-```
+### Responsive breakpoints
 
----
+Responsive behavior is standardized via the `respond(...)` mixin in `src/sass/abstracts/_mixins.scss`.
 
-## Deployment 📦
+Breakpoints include:
 
-Once you finish your setup. You need to put your website online!
+- `phone-xs` (≤ 320px)
+- `phone` (≤ 600px)
+- `tab-port-sm` (≤ 768px)
+- `tab-port` (≤ 900px)
+- `tab-land` (≤ 1200px)
+- `big-desktop` (≥ 1800px)
 
-I highly recommend to use [Netlify](https://netlify.com) because it is super easy.
+## JavaScript behavior
 
-## Others versions 👥
+This project keeps JavaScript deliberately small and focused.
 
-[Gatsby Simplefolio](https://github.com/cobiwave/gatsby-simplefolio) by [Jacobo Martinez](https://github.com/cobiwave)\
-[Ember.js Simplefolio](https://github.com/sernadesigns/simplefolio-ember) by [Michael Serna](https://github.com/sernadesigns)
+### Reveal animations (ScrollReveal)
 
-## Technologies used 🛠️
+- Initialization: `src/scripts/scrollReveal.js`
+	- Sets `reset: false` so animations don’t constantly replay
+	- Applies reveals to configured selectors
+- Configuration: `src/data/scrollRevealConfig.js`
+	- Defines `targetElements` (CSS selectors) and per-element animation props
+	- Uses viewport width checks to change animation origin on mobile
+- Integration: `src/index.js`
+	- Checks `prefers-reduced-motion` and only initializes animations when motion is allowed
+	- Adds the `sr` class to the root element to opt into ScrollReveal’s “start hidden” behavior
+	- Calls the init function with `targetElements` and `defaultProps`
 
-- [Parcel](https://parceljs.org/) - Bundler
-- [Bootstrap 4](https://getbootstrap.com/docs/4.3/getting-started/introduction/) - Frontend component library
-- [Sass](https://sass-lang.com/documentation) - CSS extension language
-- [ScrollReveal.js](https://scrollrevealjs.org/) - JavaScript library
-- [Tilt.js](https://gijsroge.github.io/tilt.js/) - JavaScript tiny parallax library
+Elements start hidden only when the root has the `sr` class via `html.sr .load-hidden` in `src/sass/base/_base.scss`.
+This keeps content visible when JavaScript is disabled or reduced motion is enabled.
 
-## Authors
+### Tilt effect (Vanilla Tilt)
 
-- **Jacobo Martinez** - [https://github.com/cobiwave](https://github.com/cobiwave)
+- Initialization: `src/scripts/tiltAnimation.js`
+	- Applies tilt to elements with the `.js-tilt` class
+	- Used on the project thumbnail container in `src/index.html`
 
-## Status
+## Content & assets
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/3a029bfd-575c-41e5-8249-c864d482c2e5/deploy-status)](https://app.netlify.com/sites/the-simplefolio/deploys)
+- Primary content is authored directly in `src/index.html`
+- Static assets live in `src/assets/` (favicon, profile photo, project images, resume PDF)
 
-## License 📄
+## Build & deployment
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+### How the build works
 
-## Acknowledgments 🎁
+- Entry point: `src/index.html` (see `package.json` `source`)
+- Parcel bundles:
+	- ES modules from `src/index.js`
+	- SCSS from `src/styles.scss`
+	- Referenced assets under `src/assets/`
 
-I was motivated to create this project because I wanted to contribute on something useful for the dev community, thanks to [ZTM Community](https://github.com/zero-to-mastery) and [Andrei](https://github.com/aneagoie)
+### Deploy
+
+1. `npm run build`
+2. Upload/deploy the `dist/` folder to a static host (Netlify, GitHub Pages, Cloudflare Pages, Apache, etc.)
+
+## Credits
+
+- Original template: https://github.com/cobiwave/simplefolio
+
+## License
+
+MIT — see [LICENSE.md](LICENSE.md)

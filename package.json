@@ -5,7 +5,7 @@
   "description": "A clean, beautiful and responsive portfolio template for Developers!",
   "source": "src/index.html",
   "scripts": {
-    "start": "parcel",
+    "start": "parcel --port 1234",
     "build": "parcel build"
   },
   "repository": {
@@ -14,14 +14,14 @@
   },
   "keywords": [],
   "author": "Jacobo Martinez",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/cobiwave/simplefolio/issues"
   },
   "homepage": "https://github.com/cobiwave/simplefolio#readme",
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.8.2",
-    "parcel": "^2.8.2",
+    "@parcel/transformer-sass": "^2.16.4",
+    "parcel": "^2.16.4",
     "prettier": "^2.8.1"
   },
   "dependencies": {

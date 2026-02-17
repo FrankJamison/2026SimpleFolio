@@ -1,16 +1,29 @@
 #about {
   background-color: $primary-color;
-  background-image: linear-gradient(
-    135deg,
-    $primary-color 0%,
-    $secondary-color 100%
-  );
+  background-image: linear-gradient(135deg,
+      $primary-color 0%,
+      $secondary-color 100%);
   color: $white-color;
   height: 100%;
   border-top: 0px;
   -webkit-clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
   clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
   padding-bottom: 10%;
+
+  // Shadows only within the green gradient section
+  &,
+  p,
+  a,
+  h1,
+  h2,
+  h3,
+  .section-title {
+    text-shadow: 0 2px 12px rgba($dark-grey, 0.6);
+  }
+
+  .cta-btn {
+    box-shadow: 0 10px 24px rgba($dark-grey, 0.35);
+  }
 
   @include respond(tab-land) {
     height: 100%;
@@ -32,6 +45,7 @@
       @include respond(tab-land) {
         height: 100%;
       }
+
       @include respond(tab-port-sm) {
         padding-bottom: 6.4rem;
       }
@@ -53,6 +67,7 @@
         @include respond(tab-port) {
           text-align: left;
         }
+
         @include respond(tab-port-sm) {
           text-align: center;
         }

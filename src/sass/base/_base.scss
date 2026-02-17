@@ -6,10 +6,49 @@ html {
   }
 }
 
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  padding: 1rem 1.4rem;
+  background: $white-color;
+  color: $dark-grey;
+  z-index: 10000;
+  border-radius: 0.4rem;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  left: 1.2rem;
+  top: 1.2rem;
+}
+
+:focus-visible {
+  outline: 3px solid $primary-color;
+  outline-offset: 3px;
+}
+
 body {
   font-family: "Montserrat", sans-serif;
   text-align: center;
   scroll-behavior: smooth;
+  background-color: $dark-grey;
+  color: $light-grey;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Scrollbar */
@@ -17,12 +56,15 @@ body {
   width: 10px;
   height: 10px;
 }
+
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: darken($dark-grey, 7%);
 }
+
 ::-webkit-scrollbar-thumb {
   background: $light-grey;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: $primary-color;
 }

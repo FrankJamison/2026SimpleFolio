@@ -1,13 +1,24 @@
 // COLORS
-$primary-color: #02aab0;
-$secondary-color: #00cdac;
+// Single accent used everywhere (name highlight, buttons, gradients, links)
+$accent-color: #8abaae;
+$accent-color: #6fa79a;
+
+$primary-color: $accent-color;
+$secondary-color: $accent-color;
 
 $white-color: #fff;
+
+// Brighter accent variants (derived from the muted palette)
+// Used for highlighted name text + primary CTA buttons.
+$primary-color-bright: $accent-color;
+$secondary-color-bright: $accent-color;
 
 $dark-grey: #333333;
 $light-grey: #d2d2d2;
 
-$dark-blue-text: #272341; // For Headings
+// For headings / dark-on-light text in the original theme.
+// In the dark theme, this becomes a light text token.
+$dark-blue-text: $white-color;
 
 // FONT SIZE
 $default-font-size: 1.6rem;
