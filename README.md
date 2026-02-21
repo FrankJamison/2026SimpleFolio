@@ -1,57 +1,29 @@
-# Frank Jamison — SimpleFolio Portfolio (2026)
+# SimpleFolio
 
-This is my personal, single-page developer portfolio site.
+Developer-focused documentation for a single-page portfolio site built from the SimpleFolio template.
 
-It’s built as a fast, static site with a clean SCSS architecture, a small amount of JavaScript for interaction/animation, and a design that emphasizes clarity, readability, and a focused presentation of projects.
+Live Preview: https://simplefolio.fcjamison.com/
 
-## For employers & recruiters
+## What this repo is
 
-What this site demonstrates:
-
-- A production-style static web project (build pipeline + organized source structure)
-- Responsive layout and typography tuned for desktop/tablet/mobile
-- Design consistency via SCSS tokens (colors, sizes) and reusable components
-- Lightweight UX enhancements (reveal animations + subtle tilt) without a framework
-
-Where to look:
-
-- Content + messaging: `src/index.html`
-- Design system + layout: `src/sass/` (imported by `src/styles.scss`)
-- JS behavior: `src/index.js` + `src/scripts/`
+- A fast, static, single-page portfolio website.
+- Clean SCSS architecture (tokens/mixins/sections) and a small amount of JavaScript for progressive enhancement.
+- Built with Parcel (dev server + production bundling).
 
 ## Tech stack
 
-- Parcel 2 (dev server + production bundling)
-- Bootstrap 5 (grid + base utilities) with custom SCSS
-- ScrollReveal (section/element reveal animations)
-- Vanilla Tilt (tilt effect on project thumbnails)
-- Font Awesome (icon font via CDN)
+- Parcel 2
+- SCSS (structured partials under `src/sass/`)
+- Bootstrap 5 (grid + base utilities) imported via SCSS
+- ScrollReveal (reveal animations)
+- Vanilla Tilt (tilt effect on thumbnails)
+- Font Awesome (icons via CDN)
 
-## Semantic HTML & accessibility
-
-This site is implemented with semantic landmarks and accessibility-first defaults so it works well with keyboards, screen readers, and reduced-motion preferences.
-
-Key improvements and where they live:
-
-- Skip navigation: a “Skip to main content” link is the first focusable element in `src/index.html`.
-- Landmarks: the page is structured with `header`, `main`, and `footer`.
-- Clear section labeling: each major `section` uses `aria-labelledby` pointing at its heading (`h1`/`h2`).
-- Project markup: each project uses an `article` element and is labeled via `aria-labelledby`.
-- Icon-only links: back-to-top + social links include accessible names (screen-reader-only text and/or `aria-label`).
-- Link safety: external links that open a new tab use `rel="noopener noreferrer"`.
-- Descriptive media: meaningful images use specific `alt` text (not generic “Project Image”).
-
-Motion and focus behavior:
-
-- Reduced motion: if the user has `prefers-reduced-motion: reduce`, ScrollReveal + tilt are not initialized.
-- Progressive enhancement: `.load-hidden` elements are only hidden when the `sr` class is present on the root element; `src/index.js` adds that class only when animations will run.
-- Keyboard focus: a global `:focus-visible` outline and skip-link styling are defined in `src/sass/base/_base.scss`.
-
-## Local development (developers)
+## Quickstart
 
 ### Prerequisites
 
-- Node.js + npm
+- Node.js (LTS recommended) + npm
 
 ### Install
 
@@ -59,23 +31,89 @@ Motion and focus behavior:
 npm install
 ```
 
-### Run (dev server)
+### Run the dev server
 
 ```bash
 npm start
 ```
 
-Open:
+Then open:
 
 - http://localhost:1234/
+- http://simplefolio.localhost:1234/ (if you use the optional local domain setup)
 
-### Build (production)
+### Build for production
 
 ```bash
 npm run build
 ```
 
-Parcel outputs a static build to the `dist/` folder.
+Parcel outputs a static build to `dist/`.
+
+### Optional: format code
+
+Prettier is included as a dev dependency. You can run it directly:
+
+```bash
+npx prettier --write .
+```
+
+## Scripts
+
+- `npm start` — starts Parcel on port `1234`
+- `npm run build` — creates the production build in `dist/`
+
+## VS Code tasks (optional)
+
+This repo includes a few pre-configured tasks in `.vscode/tasks.json`:
+
+- `Dev: install + start` — runs `npm install` then starts the Parcel dev server
+- `Open in Browser` — opens `http://simplefolio.localhost:1234/`
+
+If you’re on Windows and using the local `*.localhost` workflow, you may also have tasks like:
+
+- `Setup Web Workspace` — configures the `simplefolio.localhost` host entry + Apache vhost (may require admin privileges)
+- `XAMPP: Start` / `XAMPP: Stop` — starts/stops the XAMPP control utilities
+
+## Troubleshooting
+
+### Port already in use
+
+`npm start` runs Parcel on port `1234`. If something else is using it, either stop the other process or change the port:
+
+```bash
+npx parcel --port 1235
+```
+
+### `simplefolio.localhost` doesn’t resolve / won’t load
+
+This repo can be used in two ways:
+
+- **Direct Parcel dev server**: use `http://localhost:1234/` (no extra setup)
+- **Local domain**: use `http://simplefolio.localhost:1234/` (requires hosts/vhost setup)
+
+If `simplefolio.localhost` isn’t working, run the `Setup Web Workspace` task (Windows) or use `http://localhost:1234/` instead.
+
+### “It’s not picking up my changes” / weird build output
+
+Clear Parcel’s cache and rebuild:
+
+```bash
+rd /s /q .parcel-cache dist
+npm run build
+```
+
+(On macOS/Linux: `rm -rf .parcel-cache dist`.)
+
+### Node/npm issues
+
+If you hit dependency or tooling errors, try using a current Node LTS version and reinstall:
+
+```bash
+rd /s /q node_modules
+del package-lock.json
+npm install
+```
 
 ## Project structure
 
@@ -99,96 +137,81 @@ src/
 examples/                 # template preview assets (optional)
 ```
 
-## Design & UI implementation details
+## Customization guide
 
-### Visual theme (tokens)
+### 1) Update content
 
-Core design tokens live in `src/sass/abstracts/_variables.scss`:
+Edit `src/index.html`:
 
-- `$accent-color` drives the site’s primary look (links, gradients, highlights)
-- `$dark-grey` / `$light-grey` define the overall dark theme base
-- `$default-font-size`, `$big-font-size`, `$mid-font-size` standardize type scale
+- Page metadata: `<title>`, `meta[name="description"]`, `meta[name="keywords"]`
+- Hero/About/Projects/Contact text
+- Project entries (each project is one `.row`/`article` block)
+- External links (GitHub, live demos, contact)
 
-### Typography
+### 2) Update images and documents
 
-Typography is defined in `src/sass/base/_typography.scss`:
+Put assets in `src/assets/` and reference them from `src/index.html`.
 
-- Montserrat (Google Fonts) for body text and links
-- Uppercased section titles with responsive sizing
-- Accent text style via `.text-color-main` (gradient-capable where supported)
+Common items:
 
-### Layout and section composition
+- `profile.jpg` (headshot)
+- project thumbnails
+- resume PDF
+- favicon
 
-The page is intentionally a single, scrollable document with clear sections:
+### 3) Tweak the visual theme (design tokens)
 
-- Hero: full-viewport, dark overlay, background image
-	- Styling: `src/sass/sections/_hero.scss`
-	- Uses a background overlay + `url("./assets/project.jpg")`
+Core design tokens live in `src/sass/abstracts/_variables.scss`.
 
-- About / Contact: gradient sections with clipped diagonals
-	- Styling: `src/sass/sections/_about.scss`, `src/sass/sections/_contact.scss`
-	- Uses `clip-path` for angled section edges (disabled on smaller breakpoints)
-	- Adds text-shadow only within gradient sections to maintain legibility
+Typical edits:
 
-- Projects: dark section with project rows and thumbnail emphasis
-	- Styling: `src/sass/sections/_projects.scss`
-	- Uses a subtle shadow/transition on `.thumbnail` and responsive spacing
+- Accent color (links/highlights/gradients)
+- Base background colors
+- Type scale variables
 
-- Footer: minimal, dark, with social links and back-to-top affordance
-	- Styling: `src/sass/layout/_footer.scss`
+### 4) Adjust layout/sections
+
+Section-specific styles live in:
+
+- Hero: `src/sass/sections/_hero.scss`
+- About: `src/sass/sections/_about.scss`
+- Projects: `src/sass/sections/_projects.scss`
+- Contact: `src/sass/sections/_contact.scss`
+- Footer: `src/sass/layout/_footer.scss`
 
 Global section spacing is in `src/sass/layout/_sections.scss`.
 
-### Buttons (CTAs)
+### 5) Animation behavior
 
-Buttons are designed as reusable components in `src/sass/components/_buttons.scss`:
+This repo keeps JS deliberately small and gated behind user preferences.
 
-- `.cta-btn--hero` uses gradient borders and a fill-on-hover effect
-- `.cta-btn--resume` is a high-contrast outlined button with fill-on-hover
-
-### Responsive breakpoints
-
-Responsive behavior is standardized via the `respond(...)` mixin in `src/sass/abstracts/_mixins.scss`.
-
-Breakpoints include:
-
-- `phone-xs` (≤ 320px)
-- `phone` (≤ 600px)
-- `tab-port-sm` (≤ 768px)
-- `tab-port` (≤ 900px)
-- `tab-land` (≤ 1200px)
-- `big-desktop` (≥ 1800px)
-
-## JavaScript behavior
-
-This project keeps JavaScript deliberately small and focused.
-
-### Reveal animations (ScrollReveal)
+Reveal animations (ScrollReveal):
 
 - Initialization: `src/scripts/scrollReveal.js`
-	- Sets `reset: false` so animations don’t constantly replay
-	- Applies reveals to configured selectors
 - Configuration: `src/data/scrollRevealConfig.js`
-	- Defines `targetElements` (CSS selectors) and per-element animation props
-	- Uses viewport width checks to change animation origin on mobile
 - Integration: `src/index.js`
-	- Checks `prefers-reduced-motion` and only initializes animations when motion is allowed
-	- Adds the `sr` class to the root element to opt into ScrollReveal’s “start hidden” behavior
-	- Calls the init function with `targetElements` and `defaultProps`
 
-Elements start hidden only when the root has the `sr` class via `html.sr .load-hidden` in `src/sass/base/_base.scss`.
-This keeps content visible when JavaScript is disabled or reduced motion is enabled.
-
-### Tilt effect (Vanilla Tilt)
+Tilt effect (Vanilla Tilt):
 
 - Initialization: `src/scripts/tiltAnimation.js`
-	- Applies tilt to elements with the `.js-tilt` class
-	- Used on the project thumbnail container in `src/index.html`
+- Applied to elements with the `.js-tilt` class
 
-## Content & assets
+Reduced-motion behavior:
 
-- Primary content is authored directly in `src/index.html`
-- Static assets live in `src/assets/` (favicon, profile photo, project images, resume PDF)
+- If the user has `prefers-reduced-motion: reduce`, ScrollReveal + tilt are not initialized.
+- `.load-hidden` is only hidden when the root has the `sr` class; `src/index.js` adds it only when animations will run.
+
+## Semantic HTML & accessibility notes
+
+This site is implemented with semantic landmarks and accessibility-first defaults.
+
+Highlights:
+
+- Skip navigation (“Skip to main content”) is the first focusable element in `src/index.html`.
+- Landmarks: `header`, `main`, `footer`.
+- Section labeling: major sections use `aria-labelledby` pointing to the section heading.
+- External links that open a new tab use `rel="noopener noreferrer"`.
+- Focus styles: `:focus-visible` outline + skip-link styling in `src/sass/base/_base.scss`.
 
 ## Build & deployment
 
@@ -196,14 +219,14 @@ This keeps content visible when JavaScript is disabled or reduced motion is enab
 
 - Entry point: `src/index.html` (see `package.json` `source`)
 - Parcel bundles:
-	- ES modules from `src/index.js`
-	- SCSS from `src/styles.scss`
-	- Referenced assets under `src/assets/`
+  - ES modules from `src/index.js`
+  - SCSS from `src/styles.scss`
+  - Referenced assets under `src/assets/`
 
 ### Deploy
 
-1. `npm run build`
-2. Upload/deploy the `dist/` folder to a static host (Netlify, GitHub Pages, Cloudflare Pages, Apache, etc.)
+1. Run `npm run build`
+2. Deploy the contents of `dist/` to any static host (Netlify, GitHub Pages, Cloudflare Pages, Apache, etc.)
 
 ## Credits
 

@@ -1,3 +1,7 @@
 node_modules/
 dist/
 .parcel-cache
+
+# Include workspace tasks even if a global gitignore ignores `.vscode/`
+!.vscode/
+!.vscode/tasks.json
